@@ -1,21 +1,28 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import s from './ImageGalleryItem.module.css';
 
 class ImageGallceryItem extends Component {
   render() {
-    const { handleClickImage } = this.props;
-    const { webformatURL, tags, largeImageURL } = this.props.dataEl;
-    const { onHandleClickImage } = this.props;
+    const { handleImageClick } = this.props;
+    const { webformatURL, tags, largeImageURL } = this.props.image;
 
     return (
-      <li
+      <p
         className={s.item}
-        onClick={() => handleClickImage({ tags, largeImageURL })}
+        onClick={() => handleImageClick({ tags, largeImageURL })}
       >
-        <img className={s.img} src={webformatURL} alt={tags} />
-      </li>
+        <img className={s.image} src={webformatURL} alt={tags} />
+      </p>
     );
   }
 }
+
+ImageGallceryItem.propTypes = {
+  handleImageClick: PropTypes.func.isRequired,
+  webformatURL: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+};
 
 export default ImageGallceryItem;

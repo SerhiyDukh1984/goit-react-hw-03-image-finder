@@ -1,9 +1,10 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import s from './Button.module.css';
 
 class Button extends Component {
   render() {
-    const { handleClickImage, loadMore, getImage } = this.props;
+    const { getImage } = this.props;
     return (
       <>
         <button className={s.button} type="button" onClick={getImage}>
@@ -13,5 +14,9 @@ class Button extends Component {
     );
   }
 }
+
+Button.propTypes = {
+  getImage: PropTypes.func.isRequired,
+};
 
 export default Button;

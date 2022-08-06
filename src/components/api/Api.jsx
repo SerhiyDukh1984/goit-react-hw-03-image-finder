@@ -1,8 +1,8 @@
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
-export default function getFoto(searchInput, page) {
+export const getFoto = (searchInput, page) => {
   const BASE_URL = 'https://pixabay.com/api/';
-
   const options = new URLSearchParams({
     key: '28585306-e4853ffc00a22ab5f0bd1fbb4',
     q: searchInput,
@@ -13,5 +13,18 @@ export default function getFoto(searchInput, page) {
     per_page: '12',
   });
 
-  fetch(` ${BASE_URL}?${options}`);
-}
+  try {
+    const response = axios.get(`${BASE_URL}?${options}`);
+    if (response.data === {}) {
+      throw new Error('error');
+    }
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+getFoto.propTypes = {
+  searchInput: PropTypes.string.isRequired,
+  page: PropTypes.number.isRequired,
+};

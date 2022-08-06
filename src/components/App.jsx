@@ -1,23 +1,66 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Circles } from 'react-loader-spinner';
 import s from '../components/App.module.css';
 import Searchbar from '../components/Searchbar/Searchbar';
 import ImageGallery from '../components/ImageGallery/ImageGallery';
 import Modal from './Modal/Modal';
 import Button from './Button/Button';
-import getFoto from './api/Api';
-
-//    https://pixabay.com/api/?q=cat&page=1&key=28585306-e4853ffc00a22ab5f0bd1fbb4&image_type=photo&orientation=horizontal&per_page=12
+import { getFoto } from './api/Api';
 
 class App extends Component {
   state = {
-    page: 1,
     searchInput: '',
     isModalOpen: false,
     largeImage: {},
     isLoading: false,
-    isError: false,
+    error: null,
     images: [],
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.searchInput !== this.state.searchInput) {
+      this.getImage();
+      this.setState({ page: 1 });
+    }
+  }
+
+  handleImageClick = data => {
+    this.setState({ largeImage: data });
+    this.toogleModal();
+  };
+
+  toogleModal = () => {
+    this.setState(({ isModalOpen }) => ({ isModalOpen: !isModalOpen }));
+  };
+
+  handleSubmit = searchInput => {
+    this.setState({
+      searchInput,
+      page: 1,
+      images: [],
+      error: false,
+    });
+  };
+
+  getImage = () => {
+    const { searchInput, page } = this.state;
+    if (searchInput !== '') {
+      this.setState({ isLoading: true });
+      getFoto(searchInput, page)
+        .then(response =>
+          this.setState(prev => ({
+            images: [...prev.images, ...response.data.hits],
+            page: prev.page + 1,
+          }))
+        )
+        .catch(error => this.setState({ error }))
+        .finally(() => this.setState({ isLoading: false }));
+    }
+  };
+
+  toogleModal = () => {
+    this.setState(({ isModalOpen }) => ({ isModalOpen: !isModalOpen }));
   };
 
   handleImageClick = data => {
@@ -25,44 +68,23 @@ class App extends Component {
     this.toogleModal();
   };
 
-  loadMore = images => {
-    this.setState({ images });
-  };
-
-  toogleModal = () => {
-    this.setState(({ isModalOpen }) => ({ isModalOpen: !isModalOpen }));
-  };
-
-  handleFormSubmit = searchInput => {
-    this.setState({ searchInput });
-  };
-
-  getImage = () => {
-    const { searchInput, page } = this.state;
-    // this.setState({ isLoading: true });
-    getFoto(searchInput, page)
-      .then(response => response.json())
-      .then(data =>
-        this.setState(prev => ({
-          images: [...prev.images, ...data.hits],
-          page: prev.page + 1,
-        }))
-      )
-      .catch(err => this.setState({ isError: true }))
-      .finally(() => this.setState({ isLoading: false }));
-  };
-
   render() {
-    const { searchInput, isLoading, largeImage, isModalOpen } = this.state;
+    const { images, isLoading, largeImage, isModalOpen, page, error } =
+      this.state;
     return (
       <div className={s.app}>
-        <Searchbar onSubmit={this.handleFormSubmit} />
-        <ImageGallery searchInput={searchInput} />
-        <Button getImage={this.getImage} loadMore={this.loadMore} />
-        {/* {isModalOpen && (
+        <Searchbar onSubmit={this.handleSubmit} />
+        <ImageGallery
+          page={page}
+          images={images}
+          handleImageClick={this.handleImageClick}
+        />
+        {isLoading && <Circles color="#00BFFF" height={60} width={60} />}
+        {images.length !== 0 && <Button getImage={this.getImage} />}
+        {error && 'НИХЄРА НЕ ЗНАЙШЛИ'}
+        {isModalOpen && (
           <Modal largeImage={largeImage} toogleModal={this.toogleModal} />
-        )} */}
-        {/* {isLoading && <Circles color="#00BFFF" height={80} width={80} />} */}
+        )}
       </div>
     );
   }
