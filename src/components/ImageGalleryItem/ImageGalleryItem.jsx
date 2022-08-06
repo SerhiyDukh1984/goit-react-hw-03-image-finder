@@ -18,11 +18,11 @@ class ImageGallceryItem extends Component {
   }
 }
 
-ImageGallceryItem.propTypes = {
-  handleImageClick: PropTypes.func.isRequired,
-  webformatURL: PropTypes.string.isRequired,
-  tags: PropTypes.string.isRequired,
-  largeImageURL: PropTypes.string.isRequired,
-};
+// ImageGallceryItem.propTypes = {
+//   handleImageClick: PropTypes.func.isRequired,
+//   webformatURL: PropTypes.string.isRequired,
+//   tags: PropTypes.string.isRequired,
+//   largeImageURL: PropTypes.string.isRequired,
+// };
 
 export default ImageGallceryItem;
