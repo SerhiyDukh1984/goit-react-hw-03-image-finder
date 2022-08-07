@@ -80,7 +80,7 @@ class App extends Component {
         />
         {isLoading && <Circles color="#00BFFF" height={60} width={60} />}
         {images.length !== 0 && <Button getImage={this.getImage} />}
-        {error && 'НИХЄРА НЕ ЗНАЙШЛИ'}
+        {error && 'НАЖАЛЬ ВИНИКЛА ПОМИЛКА'}
         {isModalOpen && (
           <Modal largeImage={largeImage} toogleModal={this.toogleModal} />
         )}
