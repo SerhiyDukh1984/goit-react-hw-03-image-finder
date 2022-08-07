@@ -18,12 +18,12 @@ class Modal extends Component {
   }
 
   onBackdropClick = e => {
-    e.target === e.currentTarget && this.props.toogleModal();
+    e.target === e.currentTarget && this.props.togleModal();
   };
 
   onBtnClickEscape = e => {
     if (e.code === 'Escape') {
-      this.props.toogleModal();
+      this.props.togleModal();
     }
   };
 
@@ -40,7 +40,7 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
-  toogleModal: PropTypes.func,
+  togleModal: PropTypes.func,
   largeImage: PropTypes.shape({
     largeImageURL: PropTypes.string.isRequired,
     tags: PropTypes.string.isRequired,

@@ -58,13 +58,13 @@ class App extends Component {
     }
   };
 
-  toogleModal = () => {
+  togleModal = () => {
     this.setState(({ isModalOpen }) => ({ isModalOpen: !isModalOpen }));
   };
 
-  handleImageClick = data => {
+  onImageClick = data => {
     this.setState({ largeImage: data });
-    this.toogleModal();
+    this.togleModal();
   };
 
   render() {
@@ -76,13 +76,13 @@ class App extends Component {
         <ImageGallery
           page={page}
           images={images}
-          handleImageClick={this.handleImageClick}
+          onImageClick={this.onImageClick}
         />
         {isLoading && <Circles color="#00BFFF" height={60} width={60} />}
         {images.length !== 0 && <Button getImage={this.getImage} />}
         {error && 'НАЖАЛЬ ВИНИКЛА ПОМИЛКА'}
         {isModalOpen && (
-          <Modal largeImage={largeImage} toogleModal={this.toogleModal} />
+          <Modal largeImage={largeImage} togleModal={this.togleModal} />
         )}
       </div>
     );
