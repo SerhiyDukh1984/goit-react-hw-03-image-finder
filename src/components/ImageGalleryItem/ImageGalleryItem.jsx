@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import s from './ImageGalleryItem.module.css';
 
-class ImageGallceryItem extends Component {
+class ImageGalleryItem extends Component {
   render() {
     const { handleImageClick } = this.props;
     const { webformatURL, tags, largeImageURL } = this.props.image;
@@ -18,11 +18,13 @@ class ImageGallceryItem extends Component {
   }
 }
 
-// ImageGallceryItem.propTypes = {
-//   handleImageClick: PropTypes.func.isRequired,
-//   webformatURL: PropTypes.string.isRequired,
-//   tags: PropTypes.string.isRequired,
-//   largeImageURL: PropTypes.string.isRequired,
-// };
+ImageGalleryItem.propTypes = {
+  handleImageClick: PropTypes.func.isRequired,
+  image: PropTypes.shape({
+    webformatURL: PropTypes.string.isRequired,
+    tags: PropTypes.string.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
+  }),
+};
 
-export default ImageGallceryItem;
+export default ImageGalleryItem;

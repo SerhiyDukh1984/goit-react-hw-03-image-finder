@@ -28,4 +28,5 @@ export default function ImageGallery({ images, handleImageClick, page }) {
 ImageGallery.propTypes = {
   images: PropTypes.array.isRequired,
   handleImageClick: PropTypes.func.isRequired,
+  page: PropTypes.number,
 };
