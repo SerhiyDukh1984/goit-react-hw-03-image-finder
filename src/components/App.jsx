@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Circles } from 'react-loader-spinner';
 import s from '../components/App.module.css';
 import Searchbar from '../components/Searchbar/Searchbar';

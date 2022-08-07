@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
 import s from './Searchbar.module.css';
-// import { getFoto } from '../api/Api';
 
 class Searchbar extends Component {
   state = {
