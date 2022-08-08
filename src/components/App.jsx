@@ -58,7 +58,6 @@ class App extends Component {
         .then(response =>
           this.setState(prev => ({
             images: [...prev.images, ...response.data.hits],
-            // page: prev.page + 1,
           }))
         )
         .catch(error => this.setState({ error }))
