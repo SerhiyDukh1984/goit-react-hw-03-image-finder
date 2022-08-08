@@ -19,8 +19,8 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.searchInput !== this.state.searchInput) {
-      this.getImage();
       this.setState({ page: 1 });
+      this.getImage();
     }
   }
 
@@ -40,10 +40,10 @@ class App extends Component {
     this.setState(({ isModalOpen }) => ({ isModalOpen: !isModalOpen }));
   };
 
-  handleSubmit = searchInput => {
+  handleSubmit = (searchInput, page) => {
     this.setState({
       searchInput,
-      page: 1,
+      page,
       images: [],
       error: false,
     });
@@ -57,7 +57,7 @@ class App extends Component {
         .then(response =>
           this.setState(prev => ({
             images: [...prev.images, ...response.data.hits],
-            // page: prev.page + 1,
+            page: page + 1,
           }))
         )
         .catch(error => this.setState({ error }))

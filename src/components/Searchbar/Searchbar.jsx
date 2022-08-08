@@ -5,6 +5,7 @@ import s from './Searchbar.module.css';
 class Searchbar extends Component {
   state = {
     searchInput: '',
+    page: 1,
   };
 
   handleChange = e => {
@@ -14,7 +15,7 @@ class Searchbar extends Component {
   };
 
   handleSubmit = e => {
-    const { searchInput } = this.state;
+    const { searchInput, page } = this.state;
 
     e.preventDefault();
 
@@ -23,8 +24,8 @@ class Searchbar extends Component {
       return;
     }
 
-    this.props.onSubmit(searchInput);
-    this.setState({ searchInput: '' });
+    this.props.onSubmit(searchInput, page);
+    this.setState({ searchInput: '', page: 1 });
   };
 
   render() {
