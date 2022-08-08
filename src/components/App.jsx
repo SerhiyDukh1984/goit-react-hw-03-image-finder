@@ -9,7 +9,6 @@ import { getFoto } from '../api/Api';
 
 class App extends Component {
   state = {
-    page: 1,
     searchInput: '',
     isModalOpen: false,
     largeImage: {},
@@ -44,7 +43,7 @@ class App extends Component {
   handleSubmit = searchInput => {
     this.setState({
       searchInput,
-
+      page: 1,
       images: [],
       error: false,
     });
@@ -58,6 +57,7 @@ class App extends Component {
         .then(response =>
           this.setState(prev => ({
             images: [...prev.images, ...response.data.hits],
+            // page: prev.page + 1,
           }))
         )
         .catch(error => this.setState({ error }))
