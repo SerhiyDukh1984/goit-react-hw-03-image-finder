@@ -4,10 +4,10 @@ import s from './Button.module.css';
 
 class Button extends Component {
   render() {
-    const { getImage } = this.props;
+    const { updatePage } = this.props;
     return (
       <>
-        <button className={s.button} type="button" onClick={getImage}>
+        <button className={s.button} type="button" onClick={updatePage}>
           Load more
         </button>
       </>
@@ -16,7 +16,7 @@ class Button extends Component {
 }
 
 Button.propTypes = {
-  getImage: PropTypes.func.isRequired,
+  updatePage: PropTypes.func.isRequired,
 };
 
 export default Button;
