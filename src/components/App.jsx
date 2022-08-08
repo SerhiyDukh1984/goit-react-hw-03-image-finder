@@ -5,10 +5,11 @@ import Searchbar from '../components/Searchbar/Searchbar';
 import ImageGallery from '../components/ImageGallery/ImageGallery';
 import Modal from './Modal/Modal';
 import Button from './Button/Button';
-import { getFoto } from './api/Api';
+import { getFoto } from '../api/Api';
 
 class App extends Component {
   state = {
+    page: 1,
     searchInput: '',
     isModalOpen: false,
     largeImage: {},
@@ -24,6 +25,13 @@ class App extends Component {
     }
   }
 
+  updatePage = () => {
+    const { page } = this.state;
+
+    this.setState({ page: page + 1 });
+    this.getImage();
+  };
+
   handleImageClick = data => {
     this.setState({ largeImage: data });
     this.toogleModal();
@@ -36,7 +44,7 @@ class App extends Component {
   handleSubmit = searchInput => {
     this.setState({
       searchInput,
-      page: 1,
+
       images: [],
       error: false,
     });
@@ -50,7 +58,7 @@ class App extends Component {
         .then(response =>
           this.setState(prev => ({
             images: [...prev.images, ...response.data.hits],
-            page: prev.page + 1,
+            // page: prev.page + 1,
           }))
         )
         .catch(error => this.setState({ error }))
@@ -79,7 +87,7 @@ class App extends Component {
           onImageClick={this.onImageClick}
         />
         {isLoading && <Circles color="#00BFFF" height={60} width={60} />}
-        {images.length !== 0 && <Button getImage={this.getImage} />}
+        {images.length !== 0 && <Button updatePage={this.updatePage} />}
         {error && 'НАЖАЛЬ ВИНИКЛА ПОМИЛКА'}
         {isModalOpen && (
           <Modal largeImage={largeImage} togleModal={this.togleModal} />
